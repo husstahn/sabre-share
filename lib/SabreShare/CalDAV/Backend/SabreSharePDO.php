@@ -206,7 +206,7 @@ class SabreSharePDO extends SabreBackend\PDO implements SabreBackend\SharingSupp
 		$fields = array_values($this->propertyMap);
 		$fields[] = 'id';
 		$fields[] = 'uri';
-		$fields[] = 'ctag';
+		$fields[] = 'synctoken';
 		$fields[] = 'components';
 		$fields[] = 'principaluri';
 		$fields[] = 'transparent';
@@ -228,7 +228,7 @@ class SabreSharePDO extends SabreBackend\PDO implements SabreBackend\SharingSupp
 					'id' => $row['id'],
 					'uri' => $row['uri'],
 					'principaluri' => $row['principaluri'],
-					'{' . \Sabre\CalDAV\Plugin::NS_CALENDARSERVER . '}getctag' => $row['ctag']?$row['ctag']:'0',
+					'{' . \Sabre\CalDAV\Plugin::NS_CALENDARSERVER . '}getctag' => $row['synctoken']?$row['synctoken']:'0',
 					'{' . \Sabre\CalDAV\Plugin::NS_CALDAV . '}supported-calendar-component-set' => new \Sabre\CalDAV\Property\SupportedCalendarComponentSet($components),
 					'{' . \Sabre\CalDAV\Plugin::NS_CALDAV . '}schedule-calendar-transp' => new \Sabre\CalDAV\Property\ScheduleCalendarTransp($row['transparent']?'transparent':'opaque'),
 			);
@@ -267,7 +267,7 @@ class SabreSharePDO extends SabreBackend\PDO implements SabreBackend\SharingSupp
 						'id' => $calendarShareRow['id'],
 						'uri' => $calendarShareRow['uri'],
 						'principaluri' => $principalUri,
-						'{' . \Sabre\CalDAV\Plugin::NS_CALENDARSERVER . '}getctag' => $calendarShareRow['ctag']?$calendarShareRow['ctag']:'0',
+						'{' . \Sabre\CalDAV\Plugin::NS_CALENDARSERVER . '}getctag' => $calendarShareRow['synctoken']?$calendarShareRow['synctoken']:'0',
 						'{' . \Sabre\CalDAV\Plugin::NS_CALDAV . '}supported-calendar-component-set' => new \Sabre\CalDAV\Property\SupportedCalendarComponentSet($shareComponents),
 						'{' . \Sabre\CalDAV\Plugin::NS_CALDAV . '}schedule-calendar-transp' => new \Sabre\CalDAV\Property\ScheduleCalendarTransp($calendarShareRow['transparent']?'transparent':'opaque'),
 				);
